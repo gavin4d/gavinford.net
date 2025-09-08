@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Traction Control
+    </h1>
+    <p>
+      Although not common in most meltybrains, a traction control system can play an integral role in the
+      competitiveness of a meltybrain. Using a traction control algorithm, a robot can decrease its spin up time, reduce
+      wear on the wheels, and make driving easier.
+    </p>
+    <h2>
+      Getting wheel speed
+    </h2>
+    <p>
+      There are several methods of obtaining the speed on the wheels on a meltybrain. There are encoders of many
+      varieties that will read the wheel speed with high accuracy. However, the simplest method is to ask the ESC to
+      report back the speed it is driving the motor. This requires the ESC to be DShot compatible and support
+      bidirectional communication. Almost all 32bit ESC will be able to do this. With a 8bit ESC it may need to be
+      reflashed to run BlueJay.
+    </p>
+    <h2>
+      Detecting slip
+    </h2>
+    <p>
+      Using the size, position, and angular velocity of the wheels, the robot can calculate a rough angular velocity of
+      the whole robot. If this reading does not match the main angular velocity reading from an accelerometer or other
+      sensor, the robot is slipping. There will always be a slight discrepancy between the two readings, so a tolerance
+      must be used. This tolerance will depend on accuracy of the wheel speed reading and wheel diameter, and it must be
+      found experimentally for each meltybrain.
+    </p>
+    <h2>
+      Preventing slip
+    </h2>
+    <p>
+      In order for the wheels to maintain traction, the force applied by the motors can never exceed the static friction
+      of the tire on the floor.
+      With a known moment of inertia and angular acceleration, the robot can calculate the force that it is applying at
+      the wheels using this formula.
+    </p>
+    <p>
+      \[f_w = \frac{I \alpha}{r}\]
+      Where \(f_w\) is the force applied by the wheel, I is the moment of inertia of the robot (found from CAD),
+      \(\alpha\) is the angular acceleration of the robot, and r is the radius of the wheels on the robot.
+    </p>
+    <p>
+      Using this force and the weight of the robot, the ratio of friction force to normal force must never exceed the
+      coefficient of static friction.
+    </p>
+    <p>
+      \[\frac{f_w}{N} < \mu_s\] Where N is the magnitude of the normal force, and \(\mu_s\) is the coefficient of static
+        friction. </p>
+        <p>
+          The coefficient of static friction limits the angular acceleration of the robot. This coefficient will depend
+          on
+          the robot’s wheel material, the surface material, and any other dust or liquid on the tire. The best way to
+          obtain
+          the coefficient of static friction is to find it experimentally.
+        </p>
+        <p>
+          The robot can maintain a coefficient of friction, which can be reduced if there is a slip detected and could
+          be
+          increased if no slipping occurs.
+        </p>
+  </main>
+</body>
+
+</html>

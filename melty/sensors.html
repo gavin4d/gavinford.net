@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Sensors
+    </h1>
+    <p>
+      The sensors in a meltybrain must provide enough data for the robot to determine its heading at all times. A
+      standard gyroscope will not work in this application; the robot spins far above any reasonably obtainable
+      gyroscope. The meltybrain must use other sensors to obtain the heading. Typically there are two different sensors
+      used in a robot: sensors to determine the rotational velocity and sensors to determine the absolute angle. Often
+      the absolute sensor is much harder to implement because it must reference an external source, such as an IR light
+      or magnetic field. Some meltybrains opt to use only a velocity measurement and rely on the driver to orientate the
+      robot.
+    </p>
+    <h2>
+      Velocity sensors
+    </h2>
+    <p>
+      The most common and reliable sensor for measuring the robot’s rotational velocity is the accelerometer. It can
+      measure the centrifugal force and from that calculate the rotational velocity using the following equation:
+    </p>
+    <p>
+      \[\omega = \sqrt{\frac{a_c}{r}}\]
+      Where \(\omega\) is the rotational velocity, \(a_c\) is the measured centrifugal acceleration, and r is the radius
+      of the sensor.
+    </p>
+    <p>
+      The most common sensors used in melybrains are 400g sensors. The two most common 400g accelerometers are the
+      ADXL373 and the H3LIS331DL. To be able to get the most out of the sensor it is common to rotate it by 45 degrees.
+      When using two of the axes to measure the centrifugal acceleration, both axes will read 1/√2 of the total
+      acceleration, so the sensor will effectively have 41% more resolution. In other words, turning a 400g
+      accelerometer 45 degrees will allow measuring accelerations of up to 565g.
+    </p>
+    <p>
+      The distance of the sensor from the center of rotation must be highly accurate and can be tuned to prevent the
+      robot’s heading from drifting. However, due to sensor nonlinearities and the frame flexing, this distance often
+      must be calibrated at different rotational velocities. One method of getting around this, is to use two
+      accelerometers separated by some distance. With the two acceleration readings the robot can determine the center
+      of rotation. This is also helpful when the robot is damaged in combat and the center of rotation changes due to
+      lost weight.
+    </p>
+    <h2>
+      Absolute Sensors
+    </h2>
+    <p>
+      Absolute sensors read an external reference to realign the robot and keep the heading consistent. This external
+      reference can use many different inputs.
+    </p>
+    <h3>
+      IR Beacon
+    </h3>
+    <p>
+      Commonly an IR beacon is used to provide a timing pulse each revolution. The robot can detect this pulse and use
+      the time since the last pulse to determine the absolute heading of the robot. Using the period of rotation from
+      the velocity sensor, the time since the timing pulse divided by the period will be the amount of the revolution
+      completed, where 0 is at the timing pulse and 1 is a full revolution.
+
+    </p>
+    <p>
+      IR beacons can have issues with reflections off the cage walls which can disrupt the operations of the robot. IR
+      beacons can be a bit finicky to get working well.
+
+    </p>
+    <h3>
+      Magnetometer
+    </h3>
+    <p>
+      A more recent sensor people are experimenting with is a magnetometer. This is essentially a high speed compass. It
+      can provide the heading but the sensor output is highly noisy from magnetic interference. By implementing a Kalman
+      filter this sensor can be well integrated into the system despite its high noise signal.
+    </p>
+    <h3>
+      Manual Heading Correction
+    </h3>
+    <p>
+      Another option many people opt for is to not use an absolute sensor and instead rely on the driver to correct the
+      heading by means of a heading light. With the velocity sensors the robot can get a decent heading that drifts
+      slightly over time. The driver can correct this drift and keep the robot on a consistent heading.
+    </p>
+  </main>
+</body>
+
+</html>

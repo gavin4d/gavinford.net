@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/luge.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/luge.js"></script>
+  <script src="/js/script.js"></script>
+  <title>Gavin Ford</title>
+</head>
+
+<body>
+  <div data-lg-preloader="fade"></div>
+  <header class="header-outer">
+    <div class="header-inner">
+      <nav class="is-collapsed">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <div class="show-nav">
+        <svg viewBox="0 0 128 128">
+          <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h1 data-lg-reveal="fade-to-right"><a href="/projects">Projects</a></h1>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="/projects/luna">LUNA DF System</a></h2>
+        <h3>Correlative Interferometry Radio Direction Finding System</h3>
+        <p>
+          LUNA is a direction finding system I developed for IREC. Maintaining reliable connection with the
+          rocket during launch requires a highly directional antenna.
+          This direction finding system obtains the direction to then orientate the directional antenna.
+          It must have accuracy down to few degrees to maintain connection. Using correlative interferometry,
+          it compares the phases on five antennas using the AD8302 chip to find incident wave direction.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/luna.jpg">
+      </div>
+    </div>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="/projects/danger-donut">Danger Donut</a></h2>
+        <h3>Melty brain combat robot</h3>
+        <p>
+          The Danger Donut is a 150 gram melty brain combat robot.
+          To maximise its moment of inerta and weapon power,
+          the entire robot spins, electronics included!
+          The Danger Donut can drift around while spinning at over 2500 RPM.
+          By implementing a Kalman filter using data from an accelerometer and IR receiver,
+          the Danger Donut can maintain a consistant heading even at top speeds.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/danger-donut.jpg">
+      </div>
+    </div>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="/projects/e-paper-watch">E-Paper Watch</a></h2>
+        <h3>Smart with e-paper display</h3>
+        <p>
+          Pretty much all smart waches available to purchase use LCD or OLED display technology.
+          By using an E-paper display instead, this watch can have a much longer battery life.
+          This is due to the physical properties of E-paper displays which allow them to remain active even with no
+          power.
+          This E-paper watch uses Bluetooth to communicate with a paired smart phone to update time, weather, and
+          other
+          information.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/e-paper-watch.jpg" width="350px" height="350px">
+      </div>
+    </div>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="/cw">Morse Code Practice</a></h2>
+        <h3>Morse code send and copy speed test</h3>
+        <p>
+          This is an online practice for CW or Morse code inspired by MonkeyType. It has
+          options to practice sending or copying at various WPM and stats to track progress.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/cw.jpg">
+      </div>
+    </div>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="https://www.monkeyflowermath.com/desmotion/">Desmotion</a></h2>
+        <h3>Desmos animation exporter</h3>
+        <p>
+          Desmotion is a wraper around Desmos that allows you to select variables to animate and
+          export animations sequences.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/desmotion.jpg">
+      </div>
+    </div>
+
+  </section>
+
+</body>
+
+</html>

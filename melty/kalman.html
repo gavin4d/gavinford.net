@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Kalman Filter
+    </h1>
+    <h2>
+      Basic Idea
+    </h2>
+    <p>
+      A Kalman filter is a way of implementing multiple sensor inputs into a physics model of the system to estimate the
+      current system state. The system state is a collection of all the values that determine the movement of the robot.
+      In the case of a meltybrain this would be heading, rotational velocity, and angular acceleration. For each loop of
+      the filter, it takes the previous system state, extrapolates it out to the current time, then does a weighted
+      average of that system state with sensor inputs. Some sensors might be noisy, these sensors would have a higher
+      variance. The Kalman filter implements this by making high variance sensors have a smaller effect and
+      recalculating the variance value for each sensor.
+    </p>
+    <h2>
+      Implementing a Rotating Kalman Filter
+    </h2>
+    <p>
+      With a Kalman filter in a rotating reference frame. There are several changes that must be made when compared to a
+      linear Kalman filter. The heading value wraps around which can cause issues when calculating the error of a
+      measurement. The easiest way to handle angle wrapping is to store the heading value in a 16 bit integer. An angle
+      of 0 to 360 degrees is mapped to 0 to 65,536 least significant bits. By storing the heading like this the angle
+      wrapping is handled by the integer overflow of the integer value.
+    </p>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/luge.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/luge.js"></script>
+  <script src="/js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Gavin Ford</title>
+</head>
+
+<body>
+  <div data-lg-preloader="fade"></div>
+  <header class="header-outer">
+    <div class="header-inner">
+      <nav class="is-collapsed">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <div class="show-nav">
+        <svg viewBox="0 0 128 128">
+          <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h1> HF Radio Wave Propagation in the Earth’s Ionosphere</h1>
+    <h2 class="page-subtitle">Gavin Ford | 2025-03-12</h2>
+    <h2>Background</h2>
+    <p>
+      As solar radiation from the sun reaches the upper atmosphere, the neural gases become
+      ionized. This ionization forms a plasma which has important effects on radio wave
+      propagation.
+    </p>
+    <p>
+      The ionosphere has several layers caused by varying electron densities. These electron
+      densities vary throughout the day-night cycle and are at a maximum during the day.
+    </p>
+    <div class="image">
+      <img src="/img/ionosphere-fig1.png">
+    </div>
+    <p>
+      The plasma is the ionosphere causes the electromagnetic waves which are transmitted
+      through it to change velocity. The phase velocity of the wave is given by the following
+      equation.
+    </p>
+    <p class="equation">\(v = \frac{c}{\sqrt{1 - (\frac{\omega_{pe}}{\omega})}}\)</p>
+    <p>Where \(v\) is the phase velocity, \(c\) is the speed of light in a vacuum, \(\omega\) is the frequency of the
+      electromagnetic radiation, and \(\omega_{pe}\) is the electron plasma frequency given by the following:
+    </p>
+    <p class="equation">
+      \(\omega_{pe} = \sqrt{\frac{n_e (y) e^2}{m_e \epsilon_0}}\)
+    </p>
+    <p>
+      Where \(n_e (y)\) is the electron density as a function of altitude, \(e\) is the elementary charge, \(m_e\) is
+      the mass of one electron, and \(\epsilon_0\) is the vacuum permittivity.
+    </p>
+    <p>
+      We can then solve for the velocity at any altitude:
+    </p>
+    <p class="equation">
+      \(v(y) = \frac{c}{\sqrt{1 - \frac{n_e (y) e^2}{m_e \epsilon_0 \omega^2}}}\)
+    </p>
+    <p>
+      From equation (1), we can see that phase velocity of the electromagnetic wave will be
+      greater than the speed of light. This is possible because the group velocity remains at the
+      speed of light, which prevents breaking the universe.
+    </p>
+    <h2> Path Calculations </h2>
+    <p>
+      In an attempt to simplify the model, we will represent the electron density function, \(n_e (y)\), as
+      a linear function that increases to a maximum from 100 km to 300 km then decreases back
+      to 0 until 500 km. Additionally, we will be ignoring the effects from the earth’s magnetic field.
+    </p>
+    <p>
+      Using Fermat’s principle, we can create the following functional then optimise to find the path
+      the wave will follow.
+    </p>
+    <p class="equation">
+      \(\int \frac{1}{v(y) \sqrt{1+{y'}^2}}dx\)
+    <p>
+      Using the Euler-Lagrange equation, we can find the minimal variation.
+    </p>
+    <p class="equation">
+      \(C_1 = F - y' F_{y'}\)<br>
+      \(F_{y'} = \frac{1}{v(y)} \frac{y'}{\sqrt{1+{y'}^2}}\)
+    </p>
+    <p>
+      Solving for y' :
+    </p>
+    <p class="equation">
+      \(C_1 = \frac{1}{v(y)} (\sqrt{1+{y'}^2}-\frac{{y'}^2}{\sqrt{1+{y'}^2}})\)<br>
+      \( = \frac{1}{v(y)} (\frac{1 + {y'}^2}{\sqrt{1+{y'}^2}}-\frac{{y'}^2}{\sqrt{1+{y'}^2}})\)<br>
+      \( = \frac{1}{v(y)} (\frac{1}{\sqrt{1+{y'}^2}})\)<br>
+      \((C_1 v(y))^2 = \frac{1}{1+{y'}^2}\)<br>
+      \(y' = \sqrt{\frac{1}{(C_1 v(y))^2} - 1}\)
+    </p>
+    <p>
+      We get a differential equation representing the slope of the propagation path at a given
+      altitude.
+    </p>
+    <p>
+      Since the differential equation does not have a nice solution, I used python to numerically
+      solve it. Following is the propagation path for each lift off angle from 0 to 89 degrees with a
+      frequency of 7 MHz (40 meter band), and max electron density of \(5 × 10^{11} m^{-3}\):
+    </p>
+    <div class="image">
+      <img src="/img/ionosphere-fig2.png">
+    </div>
+    <h2>Conclusion</h2>
+    <p>
+      The properties of the ionosphere allow for HF radio waves to reflect off of it and reach farther
+      distances than can be reached with direct ground wave propagation. At high angles, the
+      waves make it through the ionosphere and do not get reflected. This causes a skip zone
+      between where ground wave reaches and where the reflected wave reaches. These
+      reflections allow HF radio to reach distances much farther than higher frequency radio
+      waves.
+    </p>
+    <h2>References</h2>
+    <p>
+      Bilitza, D., Pezzopane, M., Truhlik, V., Altadill, D., Reinisch, B. W., & Pignalberi, A. (2022). The
+      International Reference Ionosphere model: A review and description of an ionospheric
+      benchmark. Reviews of Geophysics, 60, e2022RG000792. https://doi.org/10.1029/2022RG
+      000792
+    </p>
+    <p>
+      Yan, Zhaowen & WANG, Gang & LI, Weimin & YU, Dapeng & Rahman, Toyobur. (2011).
+      Prediction of Group Delay Distribution Around Receiving Point Using Modified IRI Model and
+      IGRF Model. Chinese Journal of Aeronautics. 24. 797–806. 10.1016/
+      S1000-9361(11)60094-0. https://doi.org/10.1016/S1000-9361(11)60094-0.
+    </p>
+    <p>
+      29:129 -Plasma Oscillations-An application of electrostatics and classical mechanics. (n.d.).
+      Retrieved March 11, 2025, from https://homepage.physics.uiowa.edu/~rmerlino/129Fall12/
+      29_129_Plasma_oscillations.pdf
+    </p>
+
+  </section>
+
+
+</body>
+
+</html>

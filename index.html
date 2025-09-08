@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/luge.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/luge.js"></script>
+  <script src="/js/script.js"></script>
+  <title>Gavin Ford</title>
+</head>
+
+<body>
+  <div class="main-page" data-lg-preloader="fade"></div>
+  <header class="header-outer">
+    <div class="header-inner">
+      <nav class="is-collapsed">
+        <a href="/" id="logo-video">
+          <video width=48, height=48 autoplay muted>
+            <source src="/img/logo128.mp4" type="video/mp4" />
+          </video>
+        </a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact" onclick="document.getElementById('contact').children[0].classList.add('is-in')">Contact</a>
+      </nav>
+      <div class="show-nav">
+        <svg viewBox="0 0 128 128">
+          <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+        </svg>
+      </div>
+    </div>
+  </header>
+  <section class="s-hero">
+    <div class="hero-content" data-lg-parallax data-lg-parallax-amplitude="-2">
+      <h1 class="title" data-lg-reveal="slide-to-bottom">
+        GAVIN
+      </h1>
+      <h1 class="title" data-lg-reveal="slide-to-bottom">
+        FORD
+      </h1>
+      <h2 class="subtitle" data-lg-reveal="fade-to-right">
+        Electrical Engineer
+      </h2>
+    </div>
+    <img class="prompt" alt="More bellow" src="/img/arrow.svg" width="64rem" data-lg-reveal="scale-to-bottom"
+      data-lg-reveal-delay=".25">
+  </section>
+
+  <section class="s-projects">
+    <h1 data-lg-reveal="fade-to-right"><a href="projects">Projects</a></h1>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="projects/luna">LUNA DF System</a></h2>
+        <h3>Correlative Interferometry Direction Finding System</h3>
+        <p>
+          LUNA is a direction finding system I developed for IREC. Maintaining reliable connection with the
+          rocket during launch requires a highly directional antenna.
+          This direction finding system obtains the direction to then orientate the directional antenna.
+          It must have accuracy down to few degrees to maintain connection. Using correlative interferometry,
+          it compares the phases on five antennas using the AD8302 chip to find incident wave direction.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/luna.jpg">
+      </div>
+    </div>
+    <!-- <div class="my-element" data-lg-parallax data-lg-parallax-amplitude="-5" -->
+    <!-- style="background-color: red; width: 100px; height: 100px;"> -->
+    <!-- </div> -->
+
+    <!-- <div class="my-element" data-lg-parallax="child"> -->
+    <!-- <img src="/my-image" /> -->
+    <!-- </div> -->
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="projects/danger-donut">Danger Donut</a></h2>
+        <h3>Melty brain combat robot</h3>
+        <p>
+          The Danger Donut is a 150 gram melty brain combat robot.
+          To maximise its moment of inertia and weapon power,
+          the entire robot spins, electronics included!
+          The Danger Donut can drift around while spinning at over 2500 RPM.
+          By implementing a Kalman filter using data from an accelerometer and IR receiver,
+          the Danger Donut can maintain a consistent heading even at top speeds.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/danger-donut.jpg">
+      </div>
+    </div>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="projects/e-paper-watch">E-Paper Watch</a></h2>
+        <h3>Smartwatch with e-paper display</h3>
+        <p>
+          Pretty much all smart waches available to purchase use LCD or OLED display technology.
+          By using an E-paper display instead, this watch can have a much longer battery life.
+          This is due to the physical properties of E-paper displays which allow them to remain active even with no
+          power.
+          This E-paper watch uses Bluetooth to communicate with a paired smart phone to update time, weather, and
+          other
+          information.
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/e-paper-watch.jpg" width="350px" height="350px">
+      </div>
+    </div>
+
+    <h3><a href="projects">> Want more projects? < </a>
+    </h3>
+  </section>
+
+  <section class="s-blog">
+    <h1 data-lg-reveal="fade-to-right"><a href="blog">Blog</a></h1>
+
+    <div data-lg-reveal="fade" class="project">
+      <div class="description">
+        <h2><a href="/blog/ionosphere">HF Radio Wave Propagation in the Earth’s Ionosphere</a></h2>
+        <h3>2025-02-12</h3>
+        <p>
+        </p>
+      </div>
+      <div class="image">
+        <img src="/img/ionosphere-fig2.png">
+      </div>
+    </div>
+
+    <h3><a href="blog">> Want more blogs? < </a>
+    </h3>
+  </section>
+
+  <section class="s-contact" id="contact">
+    <h1 data-lg-reveal="fade-to-right">Contact</h1>
+
+    <p class="contact">
+      <a href="mallto:gford@wpi.edu">gford@wpi.edu</a>
+      <br>
+      <a href="resume.pdf">Resume</a>
+      <br>
+      <a href="https://www.linkedin.com/in/gavin4d/">Linkedin</a>
+      <br>
+      <a href="https://www.youtube.com/@Gavin_4D">Youtube</a>
+      <br>
+      <a href="https://github.com/gavin4d">Github</a>
+    </p>
+
+  </section>
+
+</body>
+
+</html>

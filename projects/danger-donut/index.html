@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/luge.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/luge.js"></script>
+  <script src="/js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Gavin Ford</title>
+</head>
+
+<body>
+  <div data-lg-preloader="fade"></div>
+  <header class="header-outer">
+    <div class="header-inner">
+      <nav class="is-collapsed">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <div class="show-nav">
+        <svg viewBox="0 0 128 128">
+          <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h1>Danger Donut</h1>
+    <h2>Design Requirements</h2>
+    <p>A translational drift robot also known as a melty brain spins its entire mass. To control this spinning mass the
+      robot must pulse the drive motors in phase with the robot’s rotation. This requires the robot to know its heading
+      throughout each revolution. Almost all melty brains use an accelerometer to measure centrifugal force and infer
+      rotational velocity. With good filtering and slight adjustments from the driver, the integral of this velocity can
+      be used to maintain a steady heading. However, some melty brains implement IR beacons or more recently
+      magnetometers to get an absolute heading. To keep Danger Donut simple, I decided to implement an accelerometer and
+      IR beacon.
+    </p>
+    <p>From research of other melty brains, I found 2500 RPM to be a decent target for the 150 gram weight class. For a
+      bit of safety factor, I wanted the motors to theoretically be able to spin the bot at 5000 RPM. The accelerometer
+      had to be placed at a radius of 3 cm to be properly supported. By mounting the accelerometer at 45 degrees, I can
+      use two of the channels and increase the max acceleration by ~ 41%. Therefore, the accelerometer needs to measure
+      up to:
+    </p>
+    <p class="equation">\(a= r \omega^2
+      = \frac{1}{\sqrt{2}} \cdot 0.03 m \cdot (2500\frac{2\pi}{60})^2
+      = 1454 \frac{m} {s^2}
+      = 148 g\)
+    </p>
+    <h2>Parts List</h2>
+    <h3>ESP32S3</h3>
+    <p>I chose to use the ESP32S3 chip due to its high performance for short loop times and built-in Bluetooth
+      capabilities for connecting with my controller. Additionally, the chip is inexpensive which reduces the cost of
+      damaged parts.</p>
+    <h3>2750 Kv 18mm Brushless Motors</h3>
+    <p>These tiny brushless motors are plenty powerful for the small robot despite the high Kv value. I also was able to
+      find them for insanely cheap at only $1.50 a piece.</p>
+    <h3>XSD7A ESC</h3>
+    <p>I used these small 7A ESCs to drive the brushless motors. They are smaller and lighter than most other 7A ESCs
+      and run BLHeli_s which I control using dshot300.</p>
+    <h3>GNB 300mAh 2s 80C LiPo Battery</h3>
+    <p>GNB batteries were recommended to me and they seem to perform well, although I do not trust the 80C discharge
+      rating they advertise. For better packaging, I used two single cell batteries in series.
+    </p>
+    <h3>Analog Devices ADXL375 200G Accelerometer</h3>
+    <p>This is the primary sensor used to detect the rotational velocity of the melty brain. By measuring the
+      centrifugal force, I can calculate the current rotational velocity. The 200G max acceleration is needed to reach
+      the design required max rotational velocity.
+    </p>
+    <h3>TSSP58038 IR Sensor</h3>
+    <p>For the IR beacon to work effectively, the sensor must be able to distinguish the beacon from surrounding sources
+      of IR light. This sensor is only sensitive to IR light modulated at 38kHz and provides a simple output unlike most
+      IR sensors used in TVs that have automatic gain adjustment or decoders.
+    </p>
+    <h3>HD107S 2020 LED</h3>
+    <p>These are the fastest individually addressable LEDs I could find. They support SPI up to 40MHz and have a PWM
+      frequency of 26kHz, which prevents gaps when used in a persistence of vision display.
+    </p>
+    <h2>Prototype Robot</h2>
+    <p>To do early testing of components and begin programming before I ordered custom PCBs, I created a prototype
+      robot. It used a solderless breadboard glued to a 3D printed chassis. I used a ESP32S3 development board and wired
+      up the motors, ESCs, IR sensor, and a LED heading light.
+    </p>
+    <p>Although the prototype does not look the greatest, it allowed me to quickly make adjustments and quickly develop
+      a proof of principle for the melty brain.
+    </p>
+    <div class="image">
+      <img src="./img/prototype.jpg" />
+    </div>
+    <h2>Schematic</h2>
+    <p>The main control PCB contains the microprocessor, accelerometer, IR sensor, LEDs, and power management. Following
+      is the schematic for the main board.
+    </p>
+    <div class="image">
+      <img src="./img/schematic.svg" />
+    </div>
+    <h3>Power Management</h3>
+    <p>From the 2S HV-LiPo, the robot gets approximately 6 to 8.7 volts. I used two LDOs to regulate and step down this
+      voltage to a 3.3 and 5 volt rail. The 5V rail powers the LEDs while the 3.3V rail powers the microcontroller and
+      sensors. Additionally, I added a voltage divider to monitor the battery voltage. To protect the microcontroller’s
+      input, I added a zener diode.
+    </p>
+    <h3>Microcontroller</h3>
+    <p>I used a ESP32S3-WROOM-1-N16 daughter board with a built-in antenna for Bluetooth. I added reset and boot
+      switches and decoupling capacitors to the 3.3 volt rail. I also added a USB-C port for programming including the
+      5.1k Ohm resistors to properly pull power and a diode to the LDO’s input.
+    </p>
+    <h3>Peripherals</h3>
+    <p>I connected both sensors to the 3.3 volt rail with decoupling capacitors. Due to the higher data rate, I used the
+      SPI interface of the ADXL375. I used a second SPI channel for the persistence of vision LEDs. The IR sensor simply
+      used a digital GPIO.
+    </p>
+    <h2>Layout</h2>
+    <p></p>
+    <div class="image">
+      <img src="./img/layout.png" />
+    </div>
+    <h2>CAD</h2>
+    <div class="image">
+      <img src="./img/CAD.png" />
+    </div>
+    <h2>Full Melty Brain Construction</h2>
+    <h2>Programming</h2>
+    <h2>Competition</h2>
+  </section>
+
+
+</body>
+
+</html>

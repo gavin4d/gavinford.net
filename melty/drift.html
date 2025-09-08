@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Translational drift
+    </h1>
+    <h2>
+      Getting the Robot Moving
+    </h2>
+    <p>
+      First step is to spin up the robot. For now, this can easily be achieved by setting the motors to drive in
+      opposite directions at a constant. Soon, we will look at a more advanced method using <a
+        href="traction.html">traction control</a>.
+    </p>
+    <p>
+      So you have a spinning robot, let’s get it moving. As the robot spins around we need to pulse the motors faster as
+      they go around one side and slower as they go around the other.
+      The following image shows both wheel vectors and the net drift vector:
+    </p>
+    <figure>
+      <img src="_img/drift_spin.svg" width="400px" />
+      <figcaption>
+        Vector repersentation of both wheel velocities as the robot spins
+      </figcaption>
+    </figure>
+    <h2>
+      Implementation
+    </h2>
+    <p>
+      Implementing translational drift requires the robot to know its heading and rotational velocity at all times.
+      These values can be read directly or calculated from sensor inputs. In the next page we will look more in depth
+      in an algorithm to combine sensor inputs called a <a href="kalman.html">Kalman filter</a>.
+    </p>
+    <p>
+      The power applied to the wheels can take many different waveforms, but it is often done using a sinusoidal wave
+      with the same frequency as the spin of the robot. Each motor’s power must be phase shifted by its angle on the
+      robot.
+    </p>
+    <p>
+      Both wheel powers, \(P_L\) and \(P_R\), need a base power to maintain the robot’s spin. We can call this power
+      \(P\):
+      \[P_R= P\]
+      \[P_L= P\]
+      Now we can add the sinusoidal power to each one and phase shift it by the angle of the wheels:
+      \[P_R=P+D_r cos(\theta)\]
+      \[P_L=P+D_r cos(\theta + \pi)\]
+      Where \(\theta\) is the heading of the robot, and \(D_r\) is the drift rate coefficient, which can be found
+      experimentally. Generally a value of around 0.25 works well.
+    </p>
+  </main>
+</body>
+
+</html>

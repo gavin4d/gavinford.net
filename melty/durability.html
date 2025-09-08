@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Durability
+    </h1>
+    <h2>
+      That much force!
+    </h2>
+    <p>
+      The force a object feels as it spins around is given by the following formula:
+      \[F=\frac{m \times v^2}{r}\]
+      For a 3lb robot, this tends to mean that your wheels are experiencing accelerations on the order of 10,000
+      \(\frac{m}{s^2}\). That’s a lot of force.
+
+      It is challenging to create a robot that not only can survive the constant centripetal acceleration but also the
+      impact forces of hitting an opponent.
+    </p>
+    <h2>
+      Make the Robot Survive Itself
+    </h2>
+    <figure>
+      <img src="_img/liftoff_hit.gif" width="450px" />
+      <figcaption>
+        Project Liftoff hitting Eruption
+      </figcaption>
+    </figure>
+    <p>
+      For every action there is an equal and opposite reaction. The force felt by both robots in an impact will be
+      equal, so for a meltybrain to be able to hit an opponent and survive, all of its internal components must be
+      capable of surviving very high accelerations. In the following sections I will go over some of the best practices
+      to keep all of the meltybrain’s internals working after impacts.
+    </p>
+    <h2>
+      Drivetrain robustness
+    </h2>
+    <p>
+      The meltybain’s drivetrain is the most critical component and often the only moving mechanism on a meltybrain.
+      Therefore, it is critical to make it robust.
+    </p>
+    <h3>
+      Wheels
+    </h3>
+    <p>
+      The wheels will experience very high centrifugal force, so they must be securely fastened so they do not fly off
+      and melt into the frame. It is highly recommended to find a drive motor with good threaded mounting holes on the
+      rotor can. This allows the wheels to be bolted directly to the motor and reduces the risk of it detaching.
+    </p>
+    <p>
+      The wheels should be made from a strong material with a thin soft layer for traction. Remember there will be about
+      a thousand times the force of gravity pulling on this. It must be strong to not bend outwards or expand radially.
+      People have had success using TPU wheels in 3lb, or silicone o-rings in lighter classes. Cleats are also a good
+      option if the area has wooden flooring. Regardless of the wheel type, the width of the wheel should be kept to a
+      minimum. As a wide wheel spins, the inside of the wheel will travel a shorter distance compared to the outside and
+      the wheel must slip, which reduces the effectiveness of the robot.
+    </p>
+    <h3>
+      Motor
+    </h3>
+    <p>
+      The drive motors can be mounted facing inwards or outwards. There are benefits and drawbacks to both ways.
+    </p>
+    <p>
+      Mounting the motors facing inwards makes the centrifugal force push the motor can onto the motor, which does not
+      require external bearings. However, because the wheels are closer to the center, it requires the motor to apply
+      higher torque, which most motors are already lacking. This will increase spin up time.
+    </p>
+    <p>
+      With an outwards facing motor, the wheel must be supported with a bearing on the outside. This external bearing
+      can be larger than the motor’s internal bearing, which increases the strength of the system. This bearing must
+      withstand large axial loads so a thrust or tapered bearing is recommended. A combination of thrust bearing for
+      axial loads and ball bearing radial loads can be successful when tapered bearings are impractical.
+    </p>
+    <p>
+      Although the drive motors are not coming to an immediate stop as they would in a hub motor weapon design, battle
+      hardening the motors by adding epoxy between the rotor magnets will help strengthen the drivetrain. There are many
+      guides available on the internet about battle hardening motors, so I will not cover it here.
+    </p>
+    <h2>
+      Wiring robustness
+    </h2>
+    <p>
+      In many combat robots the wiring is often left as an afterthought to be shoved into the robot a few minutes before
+      the match. In a meltybrain, this will not be sufficient. Loose wiring will quickly degrade in the high forces of a
+      meltybrain. It is highly recommended to mount all of the electronics boards securely to the frame. This will keep
+      everything in place and is required for accelerometers which are commonly used in meltybrains.
+    </p>
+    <p>
+      Most wiring failures occur on a solder joint between a printed circuit board (PCB) and a wire. When a wire is
+      soldered to a PCB, it wicks some solder into the strands of the wire and creates a brittle section of the wire. If
+      this section is repeatedly bent or stressed, it can break. When wiring a meltybrain, it is recommended to keep all
+      the wires supported, but it is highly important to add support to wires near a solder joint.
+    </p>
+  </main>
+</body>
+
+</html>

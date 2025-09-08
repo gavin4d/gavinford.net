@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <nav class="side-nav collapsed">
+    <div class="site-title">
+      <a href="index.html">Meltybrain Robotics
+    </div>
+    <ul>
+      <li class="nav-first">
+        <a href="index.html">Information</a>
+      </li>
+      <li class="nav-second">
+        <a href="index.html">Introduction</a>
+      </li>
+      <li class="nav-second">
+        <a href="about_project.html">About HUA Project</a>
+      </li>
+      <li class="nav-first">
+        <a href="durability.html">Mechanics</a>
+      </li>
+      <li class="nav-second">
+        <a href="durability.html">Durability</a>
+      </li>
+      <li class="nav-second">
+        <a href="parts.html">Part Selection</a>
+      </li>
+      <li class="nav-first">
+        <a href="drift.html">Software</a>
+      </li>
+      <li class="nav-second">
+        <a href="drift.html">Movement</a>
+      </li>
+      <li class="nav-second">
+        <a href="kalman.html">Kalman Filter</a>
+      </li>
+      <li class="nav-second">
+        <a href="traction.html">Traction Control</a>
+      </li>
+      <li class="nav-first nav-active">
+        <a href="processor.html">Electronics</a>
+      </li>
+      <li class="nav-second nav-active">
+        <a href="processor.html">Processors</a>
+      </li>
+      <li class="nav-second">
+        <a href="sensors.html">Sensors</a>
+      </li>
+      <li class="nav-second">
+        <a href="pcb.html">Custom Printed Circuit Board</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="show-nav">
+    <svg viewBox="0 0 128 128">
+      <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+    </svg>
+  </div>
+  <main class="content">
+    <h1>
+      Processors
+    </h1>
+    <p>
+      Meltybrains are unique in combat robotics because they are actual robots. They take sensor inputs and automate
+      tasks. Due to this complexity a meltybrain requires a main processor to process sensor inputs and perform
+      translational drift. The main processor must be capable of reading sensors, getting driver input, calculating
+      motor powers for drifting, and controlling the motors, hundreds of times a second. For good control the processor
+      should loop at around 1 kHz.
+    </p>
+    <h2>
+      Common Processors
+    </h2>
+    <p>
+      Although they are sometimes used, Arduinos and other 8bit processors are not recommended for meltybrains. Unless
+      they are running hyper optimized code most chips will not be able to keep up with the processing requirements of a
+      meltybrain. Following are some of the commonly used processors:
+    </p>
+    <ul>
+      <li>
+        <h3>
+          ESP32-S3
+        </h3>
+        <p>
+          The ESP32-S3 chip is one of espressif’s best chips. It has plenty of processing power and has a decent number
+          of libraries. It can be purchased as a small module which can be soldered on top of a PCB, which makes it
+          highly convenient. It also has a Bluetooth and WiFi antenna which can be connected to a gamepad. Using
+          Bluetooth control is not recommended in weight classes above 1lb due to potential unreliability.
+        </p>
+      </li>
+      <li>
+        <h3>
+          Teensy4.1
+        </h3>
+        <p>
+          The Teensy4.1 has a super high power chip that will be able to process anything to throw at it. It also has
+          good community support. Teensy4.1 is probably the best processor you can get in a dev board.
+        </p>
+      </li>
+      <li>
+        <h3>
+          STM32 chips
+        </h3>
+        <p>
+          The high performance line up of STM32 processors are well supported and high speed. These processors are also
+          used as industry standard in many devices. They are reliable and decently well documented.
+        </p>
+      </li>
+      <li>
+        <h3>
+          RP2350
+        </h3>
+        <p>
+          The RP2350 or RP2040 are decently powerful microcontrollers made by raspberry pi. These processors have well
+          fleshed out documentation. However, the RP2350 has an error that causes it to sometimes output around 2V.
+        </p>
+      </li>
+    </ul>
+    <h2>
+      Radios
+    </h2>
+    <p>
+      There are a few options for radios. The most common is to use an ELRS radio that communicates to the processor via
+      UART. ELRS uses LoRa to transmit data so it can transmit with a slight signal. This means that even if the antenna
+      gets hit it may still be able to transmit.
+    </p>
+    <p>
+      Alternatively, there is the SBUS protocol. This protocol transmits 16 servo outputs through an inverted serial
+      interface. This is a simpler protocol and is commonly used by FrSky.
+    </p>
+    <p>
+      If you are using a Bluetooth enabled processor, it can be possible to drive the robot with a gamepad. However,
+      this is not recommended for heavier weight classes due to reliability and safety issues.
+    </p>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meltybrain Robotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_css/style.css">
+  <script src="_js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="side-nav collapsed">
+      <div class="site-title">
+        <a href="index.html">Meltybrain Robotics
+      </div>
+      <ul>
+        <li class="nav-first nav-active">
+          <a href="index.html">Information</a>
+        </li>
+        <li class="nav-second nav-active">
+          <a href="index.html">Introduction</a>
+        </li>
+        <li class="nav-second">
+          <a href="about_project.html">About HUA Project</a>
+        </li>
+        <li class="nav-first">
+          <a href="durability.html">Mechanics</a>
+        </li>
+        <li class="nav-second">
+          <a href="durability.html">Durability</a>
+        </li>
+        <li class="nav-second">
+          <a href="parts.html">Part Selection</a>
+        </li>
+        <li class="nav-first">
+          <a href="drift.html">Software</a>
+        </li>
+        <li class="nav-second">
+          <a href="drift.html">Movement</a>
+        </li>
+        <li class="nav-second">
+          <a href="kalman.html">Kalman Filter</a>
+        </li>
+        <li class="nav-second">
+          <a href="traction.html">Traction Control</a>
+        </li>
+        <li class="nav-first">
+          <a href="processor.html">Electronics</a>
+        </li>
+        <li class="nav-second">
+          <a href="processor.html">Processors</a>
+        </li>
+        <li class="nav-second">
+          <a href="sensors.html">Sensors</a>
+        </li>
+        <li class="nav-second">
+          <a href="pcb.html">Custom Printed Circuit Board</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="show-nav">
+      <svg viewBox="0 0 128 128">
+        <path d="M 16,32 L 114,32 M 16,64 L 114,64 M 16,96 L 114,96" />
+      </svg>
+    </div>
+  </header>
+  <main class="content">
+    <h1>
+      Meltybrain Robotics
+    </h1>
+    <h2>
+      What is a Meltybrain robot?
+    </h2>
+    <figure>
+      <img src="_img/halo_spin.gif" width="400px" />
+      <figcaption>
+        Halo spinning and slowly translating
+      </figcaption>
+    </figure>
+    <p>
+      Often built with two drive motors, the meltybrain spins itself at high rotational velocities. The robot can move
+      by modulating the drive motors. As the robot is spinning, when a motor is on one side of the robot it is pulsed a
+      little faster and on the opposite side it’s pulsed a little slower. This modulation of motor powers provides a net
+      drift. This control method is known as translational drift or tornado drive and is often used in combat robots
+      where it is done to maximize the spinning mass.
+    </p>
+    <p>
+      When implementing a meltybrain control system, the robot must be able to obtain its orientation at all times while
+      spinning at upwards of 3000 RPM. This poses a great design challenge as the rotational velocity that most
+      meltybrains operate at is much higher than typical gyroscopes reading capabilities. Commonly accelerometer sensors
+      are used in meltybrains to read the centripetal force, from which the rotational velocity can be calculated. This
+      provides the rotational velocity; however, getting an absolute orientation also requires an external reference to
+      prevent the heading from drifting. This is often done with an IR beacon or magnetometer.
+    </p>
+    <h2>
+      Meltybrains in Combat Robotics
+    </h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/v2oilmugmZw?si=HZORiJMn8bbW9WO2"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p>
+      The main application for meltybrain technology is in combat robotics, where it allows the full weight of the robot
+      to be put into the weapon. This allows the weapon to store more energy at a lower speed which increases the amount
+      of energy it can put into the opposing robot.
+    </p>
+    <h3>
+      Project Liftoff
+    </h3>
+    <img src="_img/project_liftoff.png" width="400px" />
+    <p>
+      Project Liftoff is one of the most successful meltybrains created; it has won an event at NHRL. Its robust TPU
+      construction provides good protection from other robots. It also has a fully autonomous version, which uses a IR
+      range sensor to find the opposing robot.
+    </p>
+    <h3>
+      Halo
+    </h3>
+    <img src="_img/halo.jpg" width="400px" />
+    <p>
+      This robot is created from a large aluminum pipe. Building the robot as a ring allows the robot to store almost
+      twice the energy as a similarly sized disk. The large aluminum ring also provides protection for the electronics.
+    </p>
+  </main>
+</body>
+
+</html>
