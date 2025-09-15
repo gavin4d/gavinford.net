@@ -1,2 +1,6 @@
 # AGE public key
 age1ampkse3flm0fnlz30fk968kt4z8jg3p5dz6qf7qxtju3yynmep6q326mzn
+## Usage
+$ age-keygen -o key.txt
+$ age -encrypt -r age1ampkse3flm0fnlz30fk968kt4z8jg3p5dz6qf7qxtju3yynmep6q326mzn -o FILE.age FILE
+$ age -decrypt -i key.txt -o FILE FILE.age
