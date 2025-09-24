@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/luge.js"></script>
   <script src="/js/script.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <title>Gavin Ford</title>
 </head>
 
@@ -38,28 +39,112 @@
   <section>
     <h1> LUNA Direction Finding System</h1>
     <p>
+      This project is a correlative interferometry direction finding system
+      for a sounding rocket using a vertically-orientated five-antenna circular array.
+      By rotating the traditional correlative interferometry system, the system gets
+      improved elevation range at the cost of limited azimuth. Each antenna
+      implements an RF frontend with custom filter, and LNA. The system works
+      by comparing the voltage phase between each antenna and a central reference antenna.
+      These phase values are then correlated with a calibration dataset.
+      The maximum correlation will be the radio wave’s direction of arrival.
     </p>
     <div class="image">
-      <img src="/img/luna-assembled.jpg" />
+      <img src="./img/luna-assembled.jpg" width="500px" />
+    </div>
+
+    <h2>Link Budget</h2>
+    <p>
+      The radio source is a Light APRS, which transmits at 144 MHz and 1W. The DF antenna must
+      work for rocket launches up to 30,000 ft. With a safety factor of 1.25, the free path loss
+      is -99 dB. The receiving antenna is a dipole with 2.15 dBi of gain. I also account for -5 dB
+      of loss on each end.
+    </p>
+    <p class="equation">
+      \(
+      30dBm − 0.5dB − 99dB + 2.15dBi − 0.5dB = −67.85dBm
+      \)
+    </p>
+    <p>
+      The measured noise floor is at −95 dB, so the signal will be 22.15 dB over the noise floor.
+    </p>
+
+    <h2>Parts List</h2>
+    <h3>AD8302</h3>
+    <p>
+      This is the log-amp phase comparison IC. It takes in the reference
+      RF signal and an RF signal from one of the antennas and converts it to an analog voltage.
+    </p>
+    <h3>MCP3461R</h3>
+    <p>
+      The MCP3461R is a high speed and cheap ADC that is synchronized with
+      other ADCs. These ADCs are connected in a SPI line to quickly read each set of five readings.
+    </p>
+    <h3>BFP740F</h3>
+    <p>
+      The BFP740F is a RF transistor with a noise factor of 0.8 dB and 30 dB of transducer gain.
+      The transistor is implemented in a 50 ohm impedance matched inductively degenerated LNA.
+    </p>
+    <h2>DC Biasing</h2>
+    <p>
+      For the transistor to start conducting there must be approximatly 0.7 to 0.8 volts between the
+      base and emitter. By adding a DC voltage to the input and output, the transistor can be
+      biased. This puts the transistor into an always on state, where the small RF signal can be
+      amplified.
+    </p>
+    <p>
+      When adding a DC bias, you must be careful to keep the RF and DC seperate. This can be
+      achived with a capacitor to block DC from the RF input and output and an inductive RF choke
+      to prevent the RF signal leaking into the DC supply.
+    </p>
+    <p>
+      For the LNA, I implemented the BFP740F with \(I_C = 6mA\), and \(V_{CE} = 3V\).
+    </p>
+    <p class="equation">
+      \begin{eqnarray}
+      h_{f e} =& 250 \\
+      I_B =& I_C/h_{f e}\\
+      =& 0.000024\\
+      R_B =& \frac{3.3-0.8}{I_B}\\
+      =& 104 k \Omega\\
+      R_C =& \frac{3.3 - V_{C E}}{I_C}\\
+      =& 50 \Omega\\
+      \end{eqnarray}
+    </p>
+    <h2>Simulation</h2>
+    <!-- <p> -->
+    <!-- </p> -->
+
+    <div class="image">
+      <img src="./img/luna-lna-1.png" />
+    </div>
+    <p>
+      After optimizing the LNA for impedance match, noise factor, gain, and stability, the LNA gives the following
+      performance.
+    </p>
+    <div class="image">
+      <img src="./img/luna-lna-2.png" />
+    </div>
+
+    <h2>Schematic</h2>
+    <div class="image">
+      <img src="./img/luna-schematic-main.svg" />
     </div>
     <div class="image">
-      <img src="/img/luna-schematic-main.svg" />
+      <img src="./img/luna-schematic-LNA.svg" />
     </div>
     <div class="image">
-      <img src="/img/luna-schematic-LNA.svg" />
+      <img src="./img/luna-schematic-filter.svg" />
     </div>
     <div class="image">
-      <img src="/img/luna-schematic-filter.svg" />
+      <img src="./img/luna-schematic-ad8302.svg" />
     </div>
     <div class="image">
-      <img src="/img/luna-schematic-ad8302.svg" />
+      <img src="./img/luna-schematic-adc.svg" />
     </div>
+    <h2>PCB</h2>
     <div class="image">
-      <img src="/img/luna-schematic-adc.svg" />
+      <img src="./img/luna.jpg" />
     </div>
-    <h2>This page is under construction</h2>
-    <h3><a href="/">> Go back? < </a>
-    </h3>
   </section>
 
 
