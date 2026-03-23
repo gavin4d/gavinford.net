@@ -16,11 +16,14 @@ body {
   justify-self: center;
   width: 45%;
   padding-top: 10%;
+  margin: auto;
 }
 
 p {
   justify-self: center;
   font-size: 3rem;
+  margin: auto;
+  width: max-content;
 }
 
 #timer {
