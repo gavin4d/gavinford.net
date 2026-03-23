@@ -18,7 +18,7 @@ function updateTime() {
   s = checkTime(s.toFixed(2));
   ds = checkTime(ds);
   timer.innerHTML =  d + " days " + h + ":" + m + ":" + s;
-  setTimeout(updateTime, 30);
+  setTimeout(updateTime, 43);
 }
 
 function checkTime(i) {
@@ -26,16 +26,23 @@ function checkTime(i) {
   return i;
 }
 
-let x = 0,
-  y = 0,
+let x = 2,
+  y = 2,
   dirX = 1,
   dirY = 1;
 const speed = 2;
 let dvd = document.getElementById("dvd");
 let prevColorChoiceIndex = 0;
 let black = document.getElementById("black");
-const dvdWidth = dvd.clientWidth;
-const dvdHeight = dvd.clientHeight;
+const dvdWidth = dvd.clientWidth + 2;
+const dvdHeight = dvd.clientHeight + 2;
+const screenHeight = document.body.clientHeight;
+const screenWidth = document.body.clientWidth;
+
+window.onresize = () => {
+  screenHeight = document.body.clientHeight;
+  screenWidth = document.body.clientWidth;
+}
 
 function getNewRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -46,14 +53,11 @@ function getNewRandomColor() {
   return color;}
 
 function animate() {
-  const screenHeight = document.body.clientHeight - 1;
-  const screenWidth = document.body.clientWidth - 1;
-
-  if (y + dvdHeight >= screenHeight || y < 0) {
+  if (y + dvdHeight >= screenHeight || y < 2) {
     dirY *= -1;
     dvd.style.color = getNewRandomColor();
   }
-  if (x + dvdWidth >= screenWidth || x < 0) {
+  if (x + dvdWidth >= screenWidth || x < 2) {
     dirX *= -1;
 
     dvd.style.color = getNewRandomColor();
@@ -67,6 +71,6 @@ function animate() {
 
 window.requestAnimationFrame(animate);
 
-  updateTime()
+updateTime()
 }
 
