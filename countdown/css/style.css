@@ -1,0 +1,28 @@
+@font-face {
+  font-family: slugsRacer;
+  src: url("./Slugs Racer.ttf");
+}
+
+
+body {
+  background-color: black;
+  height: 100%;
+  font-family: slugsRacer;
+  color: white;
+  justify-content: center;
+}
+
+.image {
+  justify-self: center;
+  width: 45%;
+  padding-top: 10%;
+}
+
+p {
+  justify-self: center;
+  font-size: 3rem;
+}
+
+#timer {
+  width: 500px;
+}
