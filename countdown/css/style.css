@@ -9,6 +9,7 @@ body {
   height: 100%;
   font-family: slugsRacer;
   color: white;
+  cursor: none;
   justify-content: center;
 }
 
