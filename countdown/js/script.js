@@ -54,7 +54,7 @@ function getNewRandomColor() {
   return color;
 }
 
-const catUrl = "https://cataas.com/cat?type=square&"
+const catUrl = "https://cataas.com/cat/gif?type=square&"
 
 function getRandomCat() {
   var cats = document.getElementsByClassName("cat");
