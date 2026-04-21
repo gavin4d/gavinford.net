@@ -15,14 +15,16 @@ body {
   cursor: none;
   justify-content: center;
   margin: 0;
+  overflow: hidden;
 }
 
 .image {
-  width: 15%;
+  width: 25%;
   position: absolute;
   z-index: -1;
   background-color: transparent;
   opacity: 70%;
+  transition: x 100ms, y 100ms;
 }
 
 p {

@@ -32,10 +32,11 @@ let x = 2,
   dirY = 1;
 const speed = 2;
 let dvd = document.getElementById("dvd");
+let cat = document.getElementById("cat");
 let prevColorChoiceIndex = 0;
 let black = document.getElementById("black");
-const dvdWidth = dvd.clientWidth + 2;
-const dvdHeight = dvd.clientHeight + 2;
+const dvdWidth = dvd.clientHeight;
+const dvdHeight = dvd.clientHeight;
 const screenHeight = document.body.clientHeight;
 const screenWidth = document.body.clientWidth;
 
@@ -50,26 +51,45 @@ function getNewRandomColor() {
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
-  return color;}
+  return color;
+}
+
+const catUrl = "https://cataas.com/cat?type=square&"
+
+function getRandomCat() {
+  var cats = document.getElementsByClassName("cat");
+  if(cats[0].hasAttribute("hidden")) {
+    cats[1].src = catUrl + new Date().getTime();
+    cats[1].setAttribute("hidden", true);
+    cats[0].removeAttribute("hidden");
+  } else {
+    cats[0].src = catUrl + new Date().getTime();
+    cats[0].setAttribute("hidden", true);
+    cats[1].removeAttribute("hidden");
+  }
+}
 
 function animate() {
   if (y + dvdHeight >= screenHeight || y < 2) {
     dirY *= -1;
-    dvd.style.color = getNewRandomColor();
+    // dvd.style.color = getNewRandomColor();
+    getRandomCat();
   }
   if (x + dvdWidth >= screenWidth || x < 2) {
     dirX *= -1;
-
-    dvd.style.color = getNewRandomColor();
+    getRandomCat();
+    // dvd.style.color = getNewRandomColor();
   }
   x += dirX * speed;
   y += dirY * speed;
   dvd.style.left = x + "px";
   dvd.style.top = y + "px";
   window.requestAnimationFrame(animate);
+  // setTimeout(updateTime, 100);
 }
 
 window.requestAnimationFrame(animate);
+// animate1()
 
 updateTime()
 }
