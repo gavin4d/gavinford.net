@@ -1,12 +1,12 @@
 window.onload = () => {
 
-let comp = new Date("2026-04-26")
+let comp = new Date("2026-04-22")
 let timer = document.getElementById("timer");
 console.log(timer)
 
 function updateTime() {
   const date = new Date();
-  let ms_diff = (comp - date) + 14*1000*3600;
+  let ms_diff = (comp - date) + 4*1000*3600;
   let d = Math.floor(ms_diff/(1000*3600*24));
   let h = Math.floor((ms_diff/(1000*3600) - d*24));
   let m = Math.floor((ms_diff/(1000*60) - d*24*60 - h*60));
