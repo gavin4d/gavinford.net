@@ -23,11 +23,15 @@ img {
 
 p {
   font-size: 15pt;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .equation {
   /*.MathJax */
   font-size: 1.5em !important;
+  max-width: 80vw;
+  word-wrap: break-word;
 }
 
 a {
@@ -35,6 +39,7 @@ a {
   color: inherit;
   text-decoration: none;
   transition: color 0.25s;
+  overflow-wrap: anywhere;
 }
 
 a:hover {
@@ -186,7 +191,7 @@ section {
 }
 
 .project .description {
-  min-width: 350px;
+  min-width: 250px;
   max-width: calc(50vw - 400px);
 }
 
@@ -224,7 +229,7 @@ h3 {
   color: var(--accent);
 }
 
-.project .image {
+.image {
   flex-shrink: 0;
   width: 400px;
 }
@@ -266,11 +271,15 @@ h3 {
     pointer-events: inital;
     /* overflow-y: scroll; */
     z-index: 999;
+    color: var(--bg);
   }
 
   nav a {
-    color: var(--bg);
     font-size: 2rem;
+  }
+
+  nav p {
+    display: none;
   }
 
   nav a:hover {
@@ -301,17 +310,17 @@ h3 {
   }
 
   .s-hero .title {
-    font-size: 7em;
+    font-size: 5em;
   }
 
   section {
     width: min-content;
-    min-width: 350px;
+    min-width: 250px;
     justify-content: space-evenly;
   }
 
   .s-blog {
-    min-width: 350px;
+    min-width: 250px;
   }
 
   h1 {
@@ -320,6 +329,15 @@ h3 {
 
   .project {
     flex-wrap: wrap;
+  }
+
+  .image {
+    flex-shrink: 0;
+    width: 80vw;
+  }
+
+  .project .description p {
+    display: none;
   }
 
   h2 {

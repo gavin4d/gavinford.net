@@ -1,6 +1,6 @@
 window.onload = () => {
 
-let comp = new Date("2026-04-22")
+let comp = new Date("2026-10-13")
 let timer = document.getElementById("timer");
 console.log(timer)
 
